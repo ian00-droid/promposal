@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>YES 💖</title>
+
+    <style>
+        body {
+            font-family: cursive;
+            text-align: center;
+            height: 100vh;
+            margin: 0;
+            color: white;
+            background: linear-gradient(rgba(255,192,203,0.7), rgba(255,105,180,0.7)),
+                        url('../static/pics/bg.jpeg') no-repeat center center fixed;
+            background-size: cover;
+            overflow: hidden;
+        }
+
+        h1 { margin-top: 60px; font-size: 3rem; }
+        p { font-size: 1.6rem; }
+
+        img {
+            margin-top: 20px;
+            width: 250px;
+            border-radius: 20px;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            animation: float 5s linear infinite;
+        }
+
+        @keyframes float {
+            from { transform: translateY(0); opacity: 1; }
+            to { transform: translateY(-600px); opacity: 0; }
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Yay! You said YES! 💖🎉</h1>
+<p>Thank you for making me the happiest person ever 😍</p>
+
+<img src="../static/pics/pic.jpeg">
+
+<!-- CONFETTI -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script>
+confetti({particleCount:150, spread:70});
+
+// Floating hearts
+let hearts = ["❤️","💖","💕","💘"];
+for(let i=0;i<25;i++){
+    let h = document.createElement("div");
+    h.className = "heart";
+    h.innerText = hearts[Math.floor(Math.random()*hearts.length)];
+    h.style.left = Math.random()*100+"%";
+    document.body.appendChild(h);
+}
+</script>
+
+</body>
+</html>

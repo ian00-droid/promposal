@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promposal 💖</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: pink;
+            text-align: center;
+            padding-top: 100px;
+        }
+        button {
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 24px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #ff1493;
+        }
+        h1 {
+            font-size: 48px;
+            color: #fff;
+            text-shadow: 2px 2px #ff69b4;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hey! Will you go to prom with me? 💖</h1>
+    <button onclick="alert('Yay! I can’t wait! 🎉')">Click Me!</button>
+</body>
+</html>

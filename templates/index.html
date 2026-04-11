@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Promposal Timeline</title>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+    font-family: Arial, sans-serif;
+    background:#ffe4e1;
+    overflow:hidden;
+}
+
+/* Timeline */
+.timeline {
+    height:100vh;
+    overflow-y:auto;
+    scroll-snap-type:y mandatory;
+}
+
+/* Scrollbar */
+.timeline::-webkit-scrollbar { width:6px; }
+.timeline::-webkit-scrollbar-thumb {
+    background:rgba(0,0,0,0.25);
+    border-radius:10px;
+}
+
+/* Slides */
+.timeline-item {
+    height:100vh;
+    scroll-snap-align:start;
+    display:flex;
+    flex-direction: row;
+    align-items:center;
+    justify-content:flex-start;
+    padding:40px;
+    position: relative;
+}
+
+/* COVER */
+#cover {
+    background:#FFF5E1;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+#cover h2 {
+    font-size:3rem;
+    margin-bottom:20px;
+    animation: fadeIn 1.5s ease forwards;
+}
+
+#cover span {
+    font-size:1.4rem;
+    max-width:600px;
+    line-height:1.6;
+    opacity:0;
+    animation: fadeIn 1.5s ease forwards;
+    animation-delay:0.8s;
+}
+
+/* Titles */
+.timeline-item:not(#cover) h2 {
+    position:absolute;
+    top:20px;
+    left:40px;
+    font-size:2rem;
+}
+
+/* Images */
+.timeline-item img {
+    width:38vw;
+    height:55vh;
+    object-fit:cover;
+    border-radius:12px;
+    margin-right:30px;
+}
+
+#chapter6 img {
+    object-position: top center;
+}
+#promposal {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#promposal h2 {
+    position: static;
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+}
+/* Text box */
+#promposal .content {
+    background: none;
+    padding: 0;
+
+    font-family: 'Great Vibes', cursive;
+    font-size: 3rem;
+    color: #d63384;
+
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1.2s ease;
+}
+#promposal .content {
+    letter-spacing: 1px;
+    line-height: 1.4;
+}
+#promposal {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Title */
+#promposal h2 {
+    position: static;
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    margin-bottom: 30px;
+
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1.2s ease;
+}
+
+/* Question text (NO BOX) */
+#promposal .content {
+    background: none;
+    padding: 0;
+
+    font  -family: 'Allura', cursive;
+    font-size: 3.2rem;
+    color: #d63384;
+
+    letter-spacing: 1px;
+    line-height: 1.4;
+
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1.2s ease;
+}
+
+/* Buttons */
+.button {
+    padding: 18px 45px;
+    font-size: 1.3rem;
+    border-radius: 50px;
+    margin: 15px;
+}
+
+/* Fade-in active state */
+#promposal.active h2,
+#promposal.active .content {
+    opacity: 1;
+    transform: translateY(0);
+}
+}
+
+/* Buttons */
+.button {
+    padding:10px 30px;
+    border:none;
+    border-radius:50px;
+    margin:10px;
+    cursor:pointer;
+}
+
+/* Overlay */
+#yesOverlay {
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    background:rgba(255,192,203,0.9);
+    z-index:1000;
+}
+#chapter5 {
+    position: relative;
+}
+
+#chapter5 {
+    position: relative;
+}
+
+#chapter5 .sticker {
+    position: absolute;
+
+    width: 180px;   /* smaller */
+    height: auto;
+
+    filter: drop-shadow(0 15px 25px rgba(0,0,0,0.25));
+}
+#chapter5 .sticker {
+    transform: rotate(-5deg);
+}
+/* Sticker positions */
+#chapter5 .s1 {
+    top: 80px;
+    right: 60px;
+    transform: rotate(-6deg);
+}
+
+#chapter5 .s2 {
+    top: 250px;
+    right: 220px;
+    transform: rotate(8deg);
+}
+
+#chapter5 .s3 {
+    bottom: 100px;
+    right: 100px;
+    transform: rotate(-10deg);
+}
+
+#chapter5 .s4 {
+    top: 150px;
+    right: 350px;
+    transform: rotate(5deg);
+}
+/* Hearts */
+.heart {
+    position:absolute;
+    animation: floatUp linear forwards;
+}
+@keyframes floatUp {
+    0% { transform:translateY(0); opacity:1; }
+    100% { transform:translateY(-400px); opacity:0; }
+}
+
+/* Fade */
+@keyframes fadeIn {
+    from { opacity:0; transform:translateY(20px); }
+    to { opacity:1; transform:translateY(0); }
+}
+
+/* Back arrow */
+#backArrow {
+    position:fixed;
+    top:20px;
+    left:20px;
+    font-size:2rem;
+    cursor:pointer;
+    display:none;
+    z-index:1001;
+}
+
+/* Mobile */
+@media (max-width:768px){
+    .timeline-item img { width:45vw; height:auto; }
+    .content { max-width:45vw; }
+    #cover h2 { font-size:2rem; }
+}
+</style>
+</head>
+
+<body>
+
+<a id="backArrow">⬅</a>
+
+<audio id="bg-music" loop>
+<source src="../static/music/song.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="typing-sound" src="../static/music/typing.wav"></audio>
+
+<div class="timeline" id="timeline">
+
+<!-- COVER -->
+<div class="timeline-item" id="cover">
+    <h2>Our Story 💖</h2>
+    <span data-text="Every love story is special…
+This is ours.
+
+Scroll down to begin."></span>
+</div>
+
+<!-- Slide 1 -->
+<div class="timeline-item">
+<h2>Chapter I: The Beginning</h2>
+<img src="../static/pics/I.jpg">
+<div class="content"><span data-text="This is where it all started 💖
+We laughed, we explored, we got to know each other.
+Every conversation made me smile, and I knew something special was happening."></span></div>
+</div>
+
+<!-- Slide 2 -->
+<div class="timeline-item" id="chapter2">
+<h2>Chapter II: When We Started Talking</h2>
+<img src="../static/pics/II.jpeg">
+<div class="content"><span data-text="February 2024 – our first real conversation 💌
+We started talking more, sharing laughs and stories.
+Each message made me look forward to the next one."></span></div>
+</div>
+
+<!-- Slide 3 -->
+<div class="timeline-item">
+<h2>Chapter III: Becoming a Couple</h2>
+<img src="../static/pics/III.jpg">
+<div class="content"><span data-text="June 2024 – I asked her to be my girlfriend 💕
+We started dating and every day felt like a new adventure.
+Being with her was the happiest I had been in a long time."></span></div>
+</div>
+
+<!-- Slide 4 -->
+<div class="timeline-item">
+<h2>Chapter IV: Temporary Separation</h2>
+<img src="../static/pics/IV.jpg">
+<div class="content"><span data-text="Late December 2024 – we broke up 💔
+It was hard, but we stayed in touch as friends.
+Even then, I knew our story wasn’t over."></span></div>
+</div>
+
+<!-- Slide 5 -->
+<div class="timeline-item" id="chapter5">
+<h2>Chapter V: Reconnecting</h2>
+
+
+<img src="../static/pics/s1.PNG" class="sticker s1">
+<img src="../static/pics/s2.png" class="sticker s2">
+<img src="../static/pics/s3.png" class="sticker s3">
+<img src="../static/pics/s4.png" class="sticker s4">
+<div class="content">
+<span data-text="April 2025 – we started talking again as friends 🌸
+Slowly, we got closer… stronger than before.
+And everything just started to feel right again."></span>
+</div>
+</div>
+
+<!-- Slide 6 -->
+<div class="timeline-item" id="chapter6">
+<h2>Chapter VI: The Spark Reignites</h2>
+<img src="../static/pics/VI.jpg">
+<div class="content"><span data-text="July 2025 – she came for my sister's wedding 🎉
+We laughed, danced, and things just felt right again.
+From then on, everything became better than ever."></span></div>
+</div>
+
+<!-- Promposal -->
+<div class="timeline-item" id="promposal">
+<h2>The Question 💖</h2>
+
+<div class="content">
+Will you go to prom with me?
+<br><br>
+<button class="button" id="yesBtn">Yes 💖</button>
+<button class="button" id="noBtn">No 😏</button>
+</div>
+</div>
+
+</div>
+
+<div id="yesOverlay">
+<h1>Best decision ever 😍</h1>
+</div>
+
+<script>
+const timeline = document.getElementById("timeline");
+const items = document.querySelectorAll(".timeline-item");
+const typingSound = document.getElementById("typing-sound");
+const backArrow = document.getElementById("backArrow");
+const overlay = document.getElementById("yesOverlay");
+const promposal = document.getElementById("promposal");
+
+const observer2 = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            promposal.classList.add("active");
+        }
+    });
+}, { threshold: 0.6 });
+
+observer2.observe(promposal);
+/* SCROLL LOCK */
+let isScrolling = false;
+timeline.addEventListener("wheel", e => {
+    e.preventDefault();
+    if (isScrolling) return;
+
+    isScrolling = true;
+    const current = Math.round(timeline.scrollTop / window.innerHeight);
+    const direction = e.deltaY > 0 ? 1 : -1;
+    let target = Math.max(0, Math.min(current + direction, items.length - 1));
+
+    timeline.scrollTo({ top: target * window.innerHeight, behavior:"smooth" });
+    setTimeout(()=> isScrolling=false, 800);
+}, { passive:false });
+
+/* TYPEWRITER */
+function typewriter(el){
+    if (!el || el.dataset.done) return;
+    el.dataset.done = "true";
+    const text = el.dataset.text;
+    el.innerHTML = "";
+    let i = 0;
+
+    function type(){
+        if(i < text.length){
+            if(text[i] === "\n") el.innerHTML += "<br>";
+            else el.innerHTML += text[i];
+
+            typingSound.currentTime = 0;
+            typingSound.volume = 0.3;
+            typingSound.play();
+
+            i++;
+            setTimeout(type, 40);
+        }
+    }
+    type();
+}
+
+/* OBSERVER */
+const observer = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+        if(entry.isIntersecting){
+            typewriter(entry.target.querySelector("span"));
+        }
+    });
+},{ threshold:0.6 });
+
+items.forEach(item => observer.observe(item));
+
+/* NO BUTTON */
+const noBtn = document.getElementById("noBtn");
+noBtn.addEventListener("mouseover", ()=>{
+    noBtn.style.position="absolute";
+    noBtn.style.left=Math.random()*window.innerWidth+"px";
+    noBtn.style.top=Math.random()*window.innerHeight+"px";
+});
+
+/* YES BUTTON */
+document.getElementById("yesBtn").onclick = ()=>{
+    overlay.style.display="flex";
+    backArrow.style.display="block";
+
+    for(let i=0;i<30;i++){
+        const heart=document.createElement("div");
+        heart.className="heart";
+        heart.innerText="💖";
+        heart.style.left=Math.random()*window.innerWidth+"px";
+        heart.style.animationDuration=(2+Math.random()*2)+"s";
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),4000);
+    }
+
+    // Optional: send backend request here if using Node.js/Twilio
+    fetch("/send-yes", { method: "POST" });
+};
+
+/* BACK */
+backArrow.onclick = ()=>{
+    overlay.style.display="none";
+    backArrow.style.display="none";
+    document.getElementById("promposal").scrollIntoView({behavior:"smooth"});
+};
+
+/* MUSIC */
+document.body.addEventListener("click", ()=>{
+    const music=document.getElementById("bg-music");
+    music.volume=0.2;
+    music.play();
+}, { once:true });
+</script>
+
+</body>
+</html>
