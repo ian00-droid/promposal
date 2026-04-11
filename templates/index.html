@@ -269,7 +269,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: #ffe4e1;
+    background: #fff0f5;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -277,27 +277,23 @@ body {
     z-index: 9999;
 }
 
-.spinner {
-    width: 60px;
-    height: 60px;
-    border: 6px solid rgba(0,0,0,0.1);
-    border-top: 6px solid #ff69b4;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin-bottom: 20px;
+.fade {
+    font-size: 22px;
+    color: #ff4d6d;
+    animation: fade 1.5s infinite;
 }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+@keyframes fade {
+    0% { opacity: 0.3; }
+    50% { opacity: 1; }
+    100% { opacity: 0.3; }
 }
 </style>
 </head>
 
 <body>
 <div id="loader">
-    <div class="spinner"></div>
-    <h2>Loading our story 💖</h2>
+    <h2 class="fade">Loading story 💖</h2>
 </div>
 <a id="backArrow">⬅</a>
 
@@ -312,7 +308,7 @@ body {
 <!-- COVER -->
 <div class="timeline-item" id="cover">
     <h2>Our Story 💖</h2>
-    <span data-text="Every love story is special…
+    <span data-text="Every story is special…
 This is ours.
 
 Scroll down to begin."></span>
